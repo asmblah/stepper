@@ -30,7 +30,7 @@ define([
 
             this.context = context;
 
-            tools = this.fn.apply(this, slice.call(arguments, 1));
+            tools = this.fn.apply(this, [this].concat(slice.call(arguments, 1)));
 
             this.evaluator = tools.evaluator;
             this.statementWrappers = tools.statementWrappers;
@@ -41,7 +41,7 @@ define([
         },
 
         execute: function () {
-            this.statementWrappers[this.position].call(this.context, this);
+            this.statementWrappers[this.position].call(this.context);
         },
 
         forward: function () {
@@ -57,7 +57,7 @@ define([
             ast.prehoist();
             ast.wrapStatements();
 
-            this.fn = new Function(parsed.args, ast.generate());
+            this.fn = new Function(["__stepper__"].concat(parsed.args).join(","), ast.generate());
         },
 
         step: function () {
@@ -73,7 +73,7 @@ define([
     function parseFunction(fn) {
         var source = fn.toSource ? fn.toSource() : fn.toString(),
             argsRegex = /\(([^\)]*)\)/,
-            args = argsRegex.exec(source)[1].replace(/^\s*|\s*$/g, "");
+            args = util.filter(argsRegex.exec(source)[1].replace(/^\s*|\s*$/g, "").split(/\s*,\s*/));
 
         source = source.replace(/^\s*function[\s\S]*?\{|\}\s*$/g, "");
 

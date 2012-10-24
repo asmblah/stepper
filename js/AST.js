@@ -128,9 +128,7 @@ define([
             var useStrictPragma = this.getUseStrictPragma(),
                 offset = (useStrictPragma ? 1 : 0);
 
-            function wrapStatement(statement, options) {
-                options = options || {};
-
+            function wrapStatement(statement) {
                 return {
                     body: statement.type !== "BlockStatement" ? {
                         body: [statement],
@@ -140,7 +138,7 @@ define([
                     expression: false,
                     generator: false,
                     id: null,
-                    params: options.passStepper ? [{ name: "__stepper__", type: "Identifier" }] : [],
+                    params: [],
                     rest: null,
                     type: "FunctionExpression"
                 };
@@ -187,18 +185,16 @@ define([
                     consequent: makeBlockStatement(),
                     test: statement.test,
                     type: "IfStatement"
-                }, { passStepper: true }));
+                }));
 
                 util.each(consequentStatements, function (statement, index) {
-                    var options = {},
-                        statements = [statement];
+                    var statements = [statement];
 
                     // Need to jump past alternate if consequent is executed
                     if (index === consequentLength - 1) {
                         statements.push(makeCall("__stepper__", "forward", alternateLength));
-                        options.passStepper = true;
                     }
-                    statementWrappers.push(wrapStatement(makeBlockStatement(statements), options));
+                    statementWrappers.push(wrapStatement(makeBlockStatement(statements)));
                 });
 
                 util.each(alternateStatements, function (statement) {
