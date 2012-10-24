@@ -1,0 +1,36 @@
+--- 
+vendor/chai: 
+  branch: master
+  remote: master/braid/vendor/chai
+  revision: 9872815f8acebd4908d48fe4bd827ff70d45c30c
+  squashed: true
+  type: git
+  url: git://github.com/asmblah/chai.git
+vendor/escodegen: 
+  branch: master
+  remote: master/braid/vendor/escodegen
+  revision: 1ceaa72fc1c508460e3f652903c7ff419db613af
+  squashed: true
+  type: git
+  url: git://github.com/Constellation/escodegen.git
+vendor/esprima: 
+  branch: master
+  remote: master/braid/vendor/esprima
+  revision: cc2c7d77f639299a9df788ea89559ef5282db2e3
+  squashed: true
+  type: git
+  url: git://github.com/ariya/esprima.git
+vendor/mocha: 
+  branch: master
+  remote: master/braid/vendor/mocha
+  revision: 8a1555e24a543c05c6f3a99820f3d0b761bbb917
+  squashed: true
+  type: git
+  url: git://github.com/asmblah/mocha.git
+vendor/modular: 
+  branch: bdd-rewrite
+  remote: bdd-rewrite/braid/vendor/modular
+  revision: d79d745c03c3440d530d933c50b5b1062bc58c31
+  squashed: true
+  type: git
+  url: git://github.com/asmblah/modular.git
